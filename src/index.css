@@ -1,0 +1,53 @@
+html, body{
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background-color: black;
+  background-image: url(./img/Untitled-1.png), url(./img/Untitled-2.png), url(./img/Untitled-5.png), url(./img/Untitled-3.png);
+  background-repeat: no-repeat;
+  background-position: 95.5% 100%, 66% 20%, 90% 10%, 5% 90%;
+  background-size: auto, 150px, 200px, 500px;
+}
+
+#wrapper{
+  display: block;
+  max-width: 1200px;
+  margin: auto;
+  padding: 25px;
+}
+
+.nav{
+  display: flex;
+  justify-content: left;
+  margin-top: 20px;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #ffc700;
+}
+
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.nav ul li{
+  display: inline;
+}
+
+.nav ul li:not(:first-child) {
+  margin: auto 10px;
+}
+.nav ul li a{
+  color: #ffffff;
+  text-decoration: none;
+}
+.nav ul li a.active{
+  color: #ffc700;
+}
