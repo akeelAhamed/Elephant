@@ -1,5 +1,6 @@
 import "./index.css";
-import img from "./img/Logo.png";
+import logo from "./img/Logo.png";
+import search from "./search.svg";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
           <li><a href="#c">Personal</a></li>
           <li><a href="#a">Elephant Wall</a></li>
           <li>
-            <img className="logo" src={img} alt="logo" />
+            <img className="logo" src={logo} alt="logo" />
           </li>
         </ul>
         </nav>
@@ -20,11 +21,22 @@ function App() {
 
       <div className="content-wapper">
         <div className="search-container">
-
+          <form autoComplete="off">
+              <label htmlFor="search">Search for stock</label>
+              <input id="search" placeholder="Reliance Industries Ltd" />
+              <button type="submit"><img src={search} alt="Logo" /></button>
+          </form>
         </div>
 
         <div className="content">
-
+          {
+            ['Banking', 'Energy', 'Healthcare', 'FMGC', 'Automobile', 'Tele-communication', 'Media & Entertainment'].map((label, i) => {
+              const active = (i === 0);
+              return(
+                <label key={i} className={active + " label"}>{label}</label>
+              )
+            })
+          }
         </div>
       </div>
     </div>
