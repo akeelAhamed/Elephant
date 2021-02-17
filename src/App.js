@@ -1,46 +1,39 @@
-import "./index.css";
-import logo from "./img/Logo.png";
-import search from "./search.svg";
+import React, { Component } from 'react';
+import { Router, BrowserRouter } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Chart } from 'react-chartjs-2';
+import { ThemeProvider } from '@material-ui/styles';
+import validate from 'validate.js';
 
-function App() {
-  return (
-    <div id="wrapper">
-      <div className="header">
-        <nav className="nav">
-        <ul>
-          <li><a className="active" href="#h">Dashboard</a></li>
-          <li><a href="#n">Company</a></li>
-          <li><a href="#c">Personal</a></li>
-          <li><a href="#a">Elephant Wall</a></li>
-          <li>
-            <img className="logo" src={logo} alt="logo" />
-          </li>
-        </ul>
-        </nav>
-      </div>
+import { chartjs } from './helpers';
+import theme from './theme';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import './assets/scss/index.scss';
+import validators from './common/validators';
+import Routes from './Routes';
+import packageJson from '../package.json';
 
-      <div className="content-wapper">
-        <div className="search-container">
-          <form autoComplete="off">
-              <label htmlFor="search">Search for stock</label>
-              <input id="search" placeholder="Reliance Industries Ltd" />
-              <button type="submit"><img src={search} alt="Logo" /></button>
-          </form>
-        </div>
+const browserHistory = createBrowserHistory();
 
-        <div className="content">
-          {
-            ['Banking', 'Energy', 'Healthcare', 'FMGC', 'Automobile', 'Tele-communication', 'Media & Entertainment'].map((label, i) => {
-              const active = (i === 0);
-              return(
-                <label key={i} className={active + " label"}>{label}</label>
-              )
-            })
-          }
-        </div>
-      </div>
-    </div>
-  );
+Chart.helpers.extend(Chart.elements.Rectangle.prototype, {
+  draw: chartjs.draw
+});
+
+validate.validators = {
+  ...validate.validators,
+  ...validators
+};
+
+export default class App extends Component {
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+          <Router history={browserHistory}>
+            <BrowserRouter  basename={packageJson.homepage}>
+              <Routes basename={packageJson.homepage} />
+            </BrowserRouter>
+          </Router>
+      </ThemeProvider>
+    );
+  }
 }
-
-export default App;
