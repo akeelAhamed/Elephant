@@ -45,7 +45,7 @@ class Controller extends BaseController
     public function response($message=['Something went wrong'], bool $status = false, int $code = 200):object
     {
         $message = is_array($message)?$message:[$message];
-        $return = ['status' => $status, 'response'=>$message];
+        $return = ['status' => $status, 'data'=>$message];
         return response()->json($return, $code);
     }
 }

@@ -11,6 +11,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import logo from "../../../img/Logo.png";
 import useStyles from "../Style";
+import Helper from '../../../_services/Helper';
+import Auth from '../../../_services/Auth';
 
 function SignIn() {
   const classes = useStyles();
@@ -18,17 +20,28 @@ function SignIn() {
     email: '',
     password: '',
     checked: false,
+
+    errors: [],
     showPassword: false,
+    disable: false
   });
+  
+  const helper = new Helper();
 
   const handleChange = (prop) => (event) => {
     return setValues({...values, [event.target.name]: event.target.value });
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(values);
+    setValues({...values, "disable": true, "errors": []});
+    helper.onSubmit(e, values, function(response){
+      setValues({...values, "disable": false });
+      if(response.status){
+        return Auth.login(response.data);
+      }else{
+        return setValues({...values, "errors": response.data });
+      }
+    });
   };
 
   const toggleBool = (prop) =>  (event) => {
@@ -51,7 +64,9 @@ function SignIn() {
         <div className="content e">
           <div className={classes.card}>
             <Typography variant="h2" color="inherit" style={{textAlign:'center'}}>Login</Typography>
-            <form autoComplete="off" className={classes.form} onSubmit={onSubmit}>
+            {helper.getNotification(values.errors)}
+
+            <form autoComplete="off" className={classes.form} onSubmit={onSubmit} data-method="post" data-action="sign-in">
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField type="email" variant="filled" id="email" label="Email" name="email" onChange={handleChange('email')} fullWidth required/>

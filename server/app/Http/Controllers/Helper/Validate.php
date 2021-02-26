@@ -132,18 +132,18 @@ class Validate extends Controller
     public function register($id=null)
     {
         $this->attribute = [
-            'fname' => 'first name',
-            'lname' => 'last name',
+            'first' => 'first name',
+            'last' => 'last name',
             'pan' => 'pan number',
         ];
 
         $this->rules = [
-            'fname'   => ['required', 'string', 'max:100'],
-            'lname'   => ['required', 'string', 'max:100'],
-            'pan'   => ['required', 'string', 'digits:10', 'unique:users'],
+            'first'   => ['required', 'string', 'max:100'],
+            'last'   => ['required', 'string', 'max:100'],
+            'pan'   => ['required', 'alpha_num', 'min:10', 'max:10', 'unique:users'],
             'email'  => ['required', 'email', 'max:150', 'unique:users'],
             'mobile' => ['required', 'numeric', 'digits:10', 'unique:users'],
-            'password' => ['required', 'string', 'min:8']
+            'password' => ['required', 'min:8']
         ];
         if(!is_null($id)){
             $this->rules['pan']   = ['required', 'digits:10', Rule::unique('users', 'email')->where('id', '!'.$id)];

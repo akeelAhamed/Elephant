@@ -5,6 +5,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
+import Auth from '../../../../../../_services/Auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,9 +51,10 @@ const UpgradePlan = props => {
             Help
           </Button>
           <Button
-          color="primary"
-          variant="text"
-          startIcon={<ExitToAppIcon />}
+            color="primary"
+            variant="text"
+            startIcon={<ExitToAppIcon />}
+            onClick={() => Auth.logout()}
         >
           Logout
         </Button>

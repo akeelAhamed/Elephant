@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import logo from "../../../img/Logo.png";
 import useStyles from "../Style";
+import Helper from '../../../_services/Helper';
+import Auth from '../../../_services/Auth';
 
 function SignUp() {
   const classes = useStyles();
@@ -19,17 +21,28 @@ function SignUp() {
     password: '',
     mobile: '',
     pan: '',
+
+    errors: [],
     showPassword: false,
+    disable: false
   });
 
-  const handleChange = (prop) => (event) => {
+  const helper = new Helper();
+
+  const handleChange = (event) => {
     return setValues({...values, [event.target.name]: event.target.value });
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(values);
+    setValues({...values, "disable": true, "errors": []});
+    helper.onSubmit(e, values, function(response){
+      setValues({...values, "disable": false });
+      if(response.status){
+        return Auth.login(response.data);
+      }else{
+        return setValues({...values, "errors": response.data });
+      }
+    });
   };
 
   const toggleBool = (prop) =>  (event) => {
@@ -52,7 +65,9 @@ function SignUp() {
         <div className="content e">
           <div className={classes.card}>
             <Typography variant="h2" color="inherit" style={{textAlign:'center'}}>Sign up</Typography>
-            <form autoComplete="off" className={classes.form2} onSubmit={onSubmit}>
+            {helper.getNotification(values.errors)}
+            
+            <form autoComplete="off" noValidate className={classes.form2} onSubmit={onSubmit} data-method="post" data-action="sign-up">
             <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
                 <TextField type="text" variant="standard" id="first" label="First name" name="first" onChange={handleChange} fullWidth required/>
@@ -86,7 +101,7 @@ function SignUp() {
               </Grid>
 
               <Grid item xs={12} className="text-center">
-                <Button type="submit" variant="contained" className="btn-submit">Sign up</Button>
+                <Button type="submit" variant="contained" className="btn-submit" disabled={values.disable}>Sign up</Button>
               </Grid>
 
               <Grid item xs={12} className="text-center" style={{paddingTop: 14}}>

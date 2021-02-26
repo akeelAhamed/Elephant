@@ -18,15 +18,22 @@ class AuthController extends Controller
     {
         if($this->validate->register()){
             $user = User::create([
-                'fname'  => $request->fname,
-                'lname'  => $request->lname,
+                'fname'  => $request->first,
+                'lname'  => $request->last,
                 'email' => $request->email,
                 'pan'   => $request->pan,
                 'mobile'   => $request->mobile,
                 'password' => bcrypt($request->password)
             ]);
-            $accessToken = $user->createToken('authToken')->accessToken;
-            return $this->response(['user' => $user, 'access_token' => $accessToken], true);
+            $tokenResult = $user->createToken('authToken');
+            $token = $tokenResult->token;
+            $token->save();
+            
+            return $this->response([
+                '_user' => $user, 
+                '_token' => $tokenResult->token,
+                '_end' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+            ], true);
         }
 
         return $this->response($this->validate->errors);
@@ -48,9 +55,7 @@ class AuthController extends Controller
 
             $user = $request->user();
 
-            //return $this->response($user);
-
-            $tokenResult = $user->createToken('Personal Access Token');
+            $tokenResult = $user->createToken('authToken');
             $token = $tokenResult->token;
             
             if ($request->remember_me)
@@ -59,9 +64,9 @@ class AuthController extends Controller
             $token->save();
 
             return $this->response([
+                '_user'  => $user,
                 '_token' => $tokenResult->accessToken,
-                '_type' => 'Bearer',
-                '_end' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+                '_end'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
             ], true);
         }
 

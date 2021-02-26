@@ -37,7 +37,7 @@ const CompanyFeed = () => {
       ><Grid
           item
           lg={9}
-          md={12}
+          sm={12}
         >
           <Card className={classes.card}>
             <CardHeader title="Relaince Industries Ltd" titleTypographyProps={{className: classes.title}} />

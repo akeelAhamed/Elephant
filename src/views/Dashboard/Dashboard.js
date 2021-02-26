@@ -180,7 +180,7 @@ const Dashboard = () => {
               {
                 rows.map((row, i) => {
                   if(i > 2){
-                    return(<></>)
+                    return(<TableRow key={i}></TableRow>)
                   }
                   return(
                   <TableRow key={i}>

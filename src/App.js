@@ -12,6 +12,7 @@ import './assets/scss/index.scss';
 import validators from './common/validators';
 import Routes from './Routes';
 import packageJson from '../package.json';
+import Auth from './_services/Auth';
 
 const browserHistory = createBrowserHistory();
 
@@ -29,8 +30,8 @@ export default class App extends Component {
     return (
       <ThemeProvider theme={theme}>
           <Router history={browserHistory}>
-            <BrowserRouter  basename={packageJson.homepage}>
-              <Routes basename={packageJson.homepage} />
+            <BrowserRouter basename={packageJson.homepage}>
+              <Routes login={Auth.isLoggedIn(true) !== ''} basename={packageJson.homepage} />
             </BrowserRouter>
           </Router>
       </ThemeProvider>
