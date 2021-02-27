@@ -4,15 +4,26 @@ import { combineReducers } from "redux";
 import { AUTH_LOGIN, PREF_LANG, PREF_THEME } from "../action/types";
 import Auth from "../../_services/Auth";
 import Preference from "../../_services/Preference";
+import Helper from "../../_services/Helper";
+import has from "lodash/has";
 
 window.window._axios = Axios;
-window._axios.defaults.baseURL = 'http://ambaji.legalkarlo.com/stock/server/public/app';
+//window._axios.defaults.baseURL = 'http://ambaji.legalkarlo.com/stock/server/public/app';
+window._axios.defaults.baseURL = 'http://localhost/stock-analayis/elephant/server/public/app';
 window._axios.defaults.headers.common['Content-Type'] = 'application/json';
-window._axios.defaults.headers.common['Authorization'] = 'eDhrtu744$6kmjoplp-kcvnyjy';
-
+window._axios.defaults.headers.common['X-Auth-Token'] = 'eDhrtu744$6kmjoplp-kcvnyjy';
 window._ls = new SecureLS({isCompression: false, encryptionSecret: 'eDhrtu744$6kmjoplp-kcvnyjy'});
-
 const auth = Auth.isLoggedIn(true);
+
+if(auth !== ""){
+    window._axios.defaults.headers.common['Authorization'] = auth._token;
+    const helper = new Helper();
+    helper.api('/user', function(response) {
+        if(has(response, 'message')){
+            Auth.logout();
+        }
+    }, auth);
+}
 
 const initialState = {
     auth: {
@@ -25,6 +36,8 @@ const initialState = {
         mobile : window.innerWidth <= 768
     }
 }
+
+console.log(initialState);
 
 export const reducerLogin = (state = initialState, action) => {
     switch (action.type) {

@@ -1,3 +1,5 @@
+import has from "lodash/has";
+
 export default class Auth{
 
     /**
@@ -12,6 +14,7 @@ export default class Auth{
      */
     static isLoggedIn(ret=false){
         let user = window._ls.get(this.AUTH);
+        user = user === ""?"":has(user, "_token")?user:"";
         return !ret?user === "":user;
     }
 

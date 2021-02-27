@@ -8,6 +8,7 @@ const RouteWithLayout = props => {
   let to = "/";
   
   if((login || common) && !noAuth){
+    // logged in route
     return (
       <Route
         {...rest}
@@ -31,6 +32,8 @@ const RouteWithLayout = props => {
     );
   }else if(login){
     to = "/dashboard";
+  }else if(to === ""){
+    // logout and redirect
   }
 
   return(

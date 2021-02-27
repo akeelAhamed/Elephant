@@ -55,13 +55,12 @@ export default class Helper extends React.Component{
      */
     onSubmit(event, data={}, callback=null){
         event.preventDefault();
-        console.log(event.target.dataset);
         if(has(event.target.dataset, 'action') && has(event.target.dataset, 'method')){
-            return this.api(data, callback, event.target.dataset.action,event.target.dataset.method);
+            return this.api(event.target.dataset.action, callback, data, event.target.dataset.method);
         }
     }
 
-    api(data={}, callback=null, action="/", method="post"){
+    api(action="/", callback=null, data={}, method="post"){
         window._axios({
             method: method,
             url: action,
@@ -72,9 +71,9 @@ export default class Helper extends React.Component{
             }
         }, (error) => {
             if(typeof callback === "function"){
-                //return callback(error.response);
+                error = error.response;
+                return callback(error.data);
             }
-            console.log(error.response);
         });
     }
 

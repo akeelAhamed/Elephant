@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Rest;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::get('/', function () {
 Route::middleware([Rest::class])->prefix('app')->group(function () {
     Route::post('/sign-up', [AuthController::class, 'register']);
     Route::post('/sign-in', [AuthController::class, 'login']);
+    Route::middleware('auth:api')->post('/user', function (Request $request) {
+        return $request->user();
+    });
 });
 
 Route::fallback(function () {

@@ -31,7 +31,7 @@ class AuthController extends Controller
             
             return $this->response([
                 '_user' => $user, 
-                '_token' => $tokenResult->token,
+                '_token' => 'Bearer '.$tokenResult->token,
                 '_end' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
             ], true);
         }
@@ -65,7 +65,7 @@ class AuthController extends Controller
 
             return $this->response([
                 '_user'  => $user,
-                '_token' => $tokenResult->accessToken,
+                '_token' => 'Bearer '.$tokenResult->accessToken,
                 '_end'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
             ], true);
         }
