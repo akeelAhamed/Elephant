@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
-import { Notifications, Password } from './components';
+import { Profile, Password } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +24,7 @@ const Settings = () => {
           md={7}
           xs={12}
         >
-          <Notifications />
+          <Profile />
         </Grid>
         <Grid
           item

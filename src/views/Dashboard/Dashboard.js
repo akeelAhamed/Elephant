@@ -111,7 +111,7 @@ const Dashboard = () => {
         spacing={1}
       ><Grid
           item
-          lg={9}
+          sm={8}
           xs={12}
         >
           <Paper>

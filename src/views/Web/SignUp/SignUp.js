@@ -18,6 +18,8 @@ function SignUp() {
     first: '',
     last: '',
     email: '',
+    email_confirmation: '',
+    username: '',
     password: '',
     mobile: '',
     pan: '',
@@ -67,7 +69,7 @@ function SignUp() {
             <Typography variant="h2" color="inherit" style={{textAlign:'center'}}>Sign up</Typography>
             {helper.getNotification(values.errors)}
             
-            <form autoComplete="off" noValidate className={classes.form2} onSubmit={onSubmit} data-method="post" data-action="sign-up">
+            <form autoComplete="off" className={classes.form2} onSubmit={onSubmit} data-method="post" data-action="sign-up">
             <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
                 <TextField type="text" variant="standard" id="first" label="First name" name="first" onChange={handleChange} fullWidth required/>
@@ -75,9 +77,9 @@ function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField type="text" variant="standard" id="last" label="Last name" name="last" onChange={handleChange} fullWidth required/>
               </Grid>
-              
+
               <Grid item xs={12} sm={6}>
-                <TextField type="email" variant="standard" id="email" label="Email" name="email" onChange={handleChange} fullWidth required/>
+                <TextField type="text" variant="standard" id="username" label="Username" name="username" onChange={handleChange} fullWidth required/>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField type={values.showPassword?"text":"password"} variant="standard" id="password" label="Password" name="password" onChange={handleChange} fullWidth required InputProps={{
@@ -93,10 +95,14 @@ function SignUp() {
                 }}/>
               </Grid>
               
+              <Grid item xs={12} sm={6}>
+                <TextField type="email" variant="standard" id="email" label="Email" name="email" onChange={handleChange} fullWidth required/>
+              </Grid>
               <Grid item sm={6} xs={6}>
                 <TextField type="number" variant="standard" id="mobile" label="Mobile number" name="mobile" onChange={handleChange} fullWidth required/>
               </Grid>
-              <Grid item sm={6} xs={6}>
+
+              <Grid item sm={12}>
                 <TextField type="text" variant="standard" id="pan" label="Pan card number" name="pan" onChange={handleChange} fullWidth required/>
               </Grid>
 

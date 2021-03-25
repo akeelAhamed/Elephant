@@ -9,6 +9,8 @@ import {
   ComanyFeed as ComanyFeedView,
   PersonelFeed as PersonelFeedView,
   ElephantWall as ElephantWallView,
+  Friends as FriendsView,
+  Settings as SettingsView,
   
   Search as SearchView,
   SearchResult as SearchResultView,
@@ -57,6 +59,20 @@ const Routes = (props) => {
         exact
         layout={MainLayout}
         path={basename+"elephant-wall"}
+        {...props}
+      />
+      <RouteWithLayout
+        component={FriendsView}
+        exact
+        layout={MainLayout}
+        path={basename+"friends"}
+        {...props}
+      />
+      <RouteWithLayout
+        component={SettingsView}
+        exact
+        layout={MainLayout}
+        path={basename+"profile"}
         {...props}
       />
 

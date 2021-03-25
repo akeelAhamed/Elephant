@@ -138,6 +138,7 @@ class Validate extends Controller
         ];
 
         $this->rules = [
+            'username'  => ['required', 'alpha_dash', 'max:30', 'unique:users'],
             'first'   => ['required', 'string', 'max:100'],
             'last'   => ['required', 'string', 'max:100'],
             'pan'   => ['required', 'alpha_num', 'min:10', 'max:10', 'unique:users'],

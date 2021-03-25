@@ -5,4 +5,6 @@ export { default as ElephantWall } from './ElephantWall';
 export { default as Search } from './Search/Search';
 export { default as SearchResult } from './Search/SearchResult';
 export { default as PurchaseSell } from './Search/PurchaseSell';
+export { default as Friends } from './Friends';
+export { default as Settings } from './Settings';
 export { default as NotFound } from './Common';

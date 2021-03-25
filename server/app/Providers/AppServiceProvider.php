@@ -28,9 +28,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(190);
 
         // Status blueprint
-        $table = new Blueprint('status');
-        Blueprint::macro('status', function($status=1) use($table){
+
+        Blueprint::macro('status', function(Blueprint $table, $status=1){
+            $table->text('option')->nullable();
             $table->tinyInteger('status')->default($status);
+            $table->integer('time')->default(0);
         });
     }
 }

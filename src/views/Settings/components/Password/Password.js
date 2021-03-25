@@ -12,8 +12,10 @@ import {
   TextField
 } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    background: theme.palette.background
+  }
 }));
 
 const Password = props => {
@@ -22,8 +24,9 @@ const Password = props => {
   const classes = useStyles();
 
   const [values, setValues] = useState({
+    old_password: '',
     password: '',
-    confirm: ''
+    password_confirmation: ''
   });
 
   const handleChange = event => {
@@ -38,13 +41,20 @@ const Password = props => {
       {...rest}
       className={clsx(classes.root, className)}
     >
+      <CardHeader
+        title="Update Password"
+      />
+      <Divider />
       <form>
-        <CardHeader
-          subheader="Update password"
-          title="Password"
-        />
-        <Divider />
         <CardContent>
+          <TextField
+            fullWidth
+            label="Old Password"
+            name="old_password"
+            onChange={handleChange}
+            type="password"
+            value={values.old_password}
+          />
           <TextField
             fullWidth
             label="Password"
@@ -52,17 +62,16 @@ const Password = props => {
             onChange={handleChange}
             type="password"
             value={values.password}
-            variant="outlined"
+            style={{ marginTop: '1rem' }}
           />
           <TextField
             fullWidth
             label="Confirm password"
-            name="confirm"
+            name="password_confirmation"
             onChange={handleChange}
-            style={{ marginTop: '1rem' }}
             type="password"
             value={values.confirm}
-            variant="outlined"
+            style={{ marginTop: '1rem' }}
           />
         </CardContent>
         <Divider />

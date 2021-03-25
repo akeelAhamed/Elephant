@@ -3,6 +3,7 @@ import each from "lodash/each";
 import has from "lodash/has";
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class Helper extends React.Component{
 
@@ -72,7 +73,8 @@ export default class Helper extends React.Component{
         }, (error) => {
             if(typeof callback === "function"){
                 error = error.response;
-                return callback(error.data);
+                error = error === undefined?{message: error, status: false}:error.data;
+                return callback(error);
             }
         });
     }
@@ -142,5 +144,10 @@ export default class Helper extends React.Component{
         e===null||e.preventDefault();
         window.history.go(-1);
         return false;
+    }
+
+    static getLoader(){
+        return(<div style={{display: "flex", width:"100%", height: "100%", alignItems: "center",
+        justifyContent: "center", margin:'20px auto'}}><CircularProgress color="inherit" /></div>);
     }
 }

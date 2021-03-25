@@ -76,8 +76,8 @@ const ElephantWall = () => {
         spacing={1}
       ><Grid
           item
-          lg={9}
-          md={12}
+          sm={8}
+          xs={12}
           className={classes.grid}
         >
           <Card>

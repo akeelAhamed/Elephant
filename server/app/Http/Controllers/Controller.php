@@ -20,8 +20,12 @@ class Controller extends BaseController
      */
     public $_dLang = 'en';
 
-
-    /* END OF GLOBAL SETTINGS */
+    /**
+     * Default paginate limit
+     *
+     * @var int
+     */
+    public $paginate = 50;
     
     /**
      * Global validator object
@@ -30,9 +34,28 @@ class Controller extends BaseController
      */
     public $validate;
 
+    /**
+     * Global user
+     *
+     * @var null|object
+     */
+    public $user = null;
+
     public function __construct(Request $request)
     {
         $this->validate = new Validate($request);
+    }
+
+    /**
+     * Get loggedin user 
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getUser(Request $request)
+    {
+        $this->user = $this->user == null?$request->user():$this->user;
+        return $this->user;
     }
 
     /**

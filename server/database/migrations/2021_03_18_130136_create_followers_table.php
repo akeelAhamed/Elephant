@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRestsTable extends Migration
+class CreateFollowersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateRestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rests', function (Blueprint $table) {
+        Schema::create('followers', function (Blueprint $table) {
             $table->id();
-            $table->string('api');
-            $table->string('origin')->nullable();
-            $table->tinyInteger('secure')->default('0');
+            $table->bigInteger('user_id');//follower_id
+            $table->bigInteger('friend_id');//following_id
+            $table->tinyInteger('is_typing')->default(0);
+            $table->tinyInteger('active')->default(0);
+            $table->tinyInteger('notify')->default(0);
             $table->status($table);
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ class CreateRestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rests');
+        Schema::dropIfExists('followers');
     }
 }

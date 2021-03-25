@@ -8,6 +8,14 @@ export default class Auth{
     static AUTH = '__AUTHTOKEN';
 
     /**
+     * 
+     * @param {object} data 
+     */
+    static updateAuth(data){
+        window._ls.set(this.AUTH, data);
+    }
+
+    /**
      * Is logged in
      * 
      * @param {boolean} ret
@@ -24,9 +32,9 @@ export default class Auth{
      * @param {string} token 
      * @param {string} token 
      */
-    static login(token, after=""){
-        after = after===""?'dashboard':after;
-        window._ls.set(this.AUTH, token);
+    static login(token, after=null){
+        after = after === null?'dashboard':after;
+        this.updateAuth(token);
         return (after === null)||(window.location.href = after);
     }
 

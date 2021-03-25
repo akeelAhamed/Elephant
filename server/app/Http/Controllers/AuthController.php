@@ -18,6 +18,7 @@ class AuthController extends Controller
     {
         if($this->validate->register()){
             $user = User::create([
+                'username'  => $request->username,
                 'fname'  => $request->first,
                 'lname'  => $request->last,
                 'email' => $request->email,
@@ -51,7 +52,7 @@ class AuthController extends Controller
         if($this->validate->login()){
             $credentials = request(['email', 'password']);
             if(!Auth::attempt($credentials))
-                return $this->response('Unauthorized', false, 401);
+                return $this->response('Invalid credential', false);
 
             $user = $request->user();
 

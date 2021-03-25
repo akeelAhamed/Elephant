@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: 0
   },
   button: {
-    color: theme.palette.color,
+    color: theme.palette.color2,
     padding: theme.spacing(1, 1.5),
     justifyContent: 'flex-start',
     textTransform: 'none',
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightMedium
   },
   icon: {
-    color: theme.palette.icon,
+    color: theme.palette.color,
     width: 24,
     height: 24,
     display: 'flex',
@@ -34,10 +34,10 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   active: {
-    color: theme.palette.primary,
+    color: theme.palette.color,
     fontWeight: theme.typography.fontWeightMedium,
     '& $icon': {
-      color: theme.palette.primary.main
+      color: theme.palette.color
     }
   }
 }));
@@ -72,6 +72,7 @@ const SidebarNav = props => {
             className={classes.button}
             component={CustomRouterLink}
             to={page.href}
+            startIcon={page.icon}
           >
             {page.title}
           </Button>

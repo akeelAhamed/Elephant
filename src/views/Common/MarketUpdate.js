@@ -19,7 +19,7 @@ const MarketUpdate = () => {
   return (
     <Grid
         item
-        lg={3}
+        sm={4}
         xs={12}
     >
         <Table className={classes.table} aria-label="Market update">

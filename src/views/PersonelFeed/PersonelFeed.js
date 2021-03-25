@@ -12,6 +12,7 @@ import {
 } from '../Common/Charts';
 import MarketUpdate from "../Common/MarketUpdate";
 import Slider from "../Common/Slider";
+import { Post, AddPost } from "../Post";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,9 +37,14 @@ const PersonelFeed = () => {
         spacing={1}
       ><Grid
           item
-          lg={9}
-          sm={12}
+          sm={8}
+          xs={12}
         >
+
+          <AddPost/>
+          
+          <Post/>
+          
           <Card className={classes.card}>
             <CardHeader title="Relaince Industries Ltd" titleTypographyProps={{className: classes.title}} />
             <CardContent>

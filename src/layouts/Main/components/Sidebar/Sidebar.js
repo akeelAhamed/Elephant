@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SettingsIcon from '@material-ui/icons/Settings';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 import { Profile, SidebarNav, UpgradePlan } from './components';
-import packageJson from '../../../../../package.json';
 
 const useStyles = makeStyles(theme => ({
   img: {
@@ -49,13 +51,28 @@ const Sidebar = props => {
 
   const pages = [
     {
-      title: 'Recently Added',
-      href: '/recent',
+      title: 'Home',
+      href: '/dashboard',
       icon: <DashboardIcon />
     },
     {
-      title: 'Favourites',
-      href: '/favourit',
+      title: 'Post',
+      href: '/personal-feed',
+      icon: <PostAddIcon />
+    },
+    {
+      title: 'Friends',
+      href: '/friends',
+      icon: <PermIdentityIcon />
+    },
+    {
+      title: 'Saved post',
+      href: '/saved',
+      icon: <TurnedInNotIcon />
+    },
+    {
+      title: 'Profile',
+      href: '/profile',
       icon: <SettingsIcon />
     }
   ];
@@ -77,7 +94,7 @@ const Sidebar = props => {
           <img
             className={classes.img}
             alt="Logo"
-            src={packageJson.homepage+"/images/logos/logo.png"}
+            src={"/images/logos/logo.png"}
           />
         </RouterLink>
 

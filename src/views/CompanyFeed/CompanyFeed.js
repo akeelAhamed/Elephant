@@ -36,8 +36,8 @@ const CompanyFeed = () => {
         spacing={1}
       ><Grid
           item
-          lg={9}
-          sm={12}
+          sm={8}
+          xs={12}
         >
           <Card className={classes.card}>
             <CardHeader title="Relaince Industries Ltd" titleTypographyProps={{className: classes.title}} />
