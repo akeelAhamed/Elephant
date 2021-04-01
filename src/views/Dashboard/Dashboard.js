@@ -114,7 +114,7 @@ const Dashboard = () => {
           sm={8}
           xs={12}
         >
-          <Paper>
+          <Paper style={{overflow: 'auto'}}>
             <Table className={classes.table} aria-label="dashboard">
               <TableHead>
                 <TableRow>

@@ -54,18 +54,19 @@ export default class Helper extends React.Component{
      * 
      * @param object event 
      */
-    onSubmit(event, data={}, callback=null){
+    onSubmit(event, data={}, callback=null, header={}){
         event.preventDefault();
         if(has(event.target.dataset, 'action') && has(event.target.dataset, 'method')){
-            return this.api(event.target.dataset.action, callback, data, event.target.dataset.method);
+            return this.api(event.target.dataset.action, callback, data, event.target.dataset.method, header);
         }
     }
 
-    api(action="/", callback=null, data={}, method="post"){
+    api(action="/", callback=null, data={}, method="post", header={}){
         window._axios({
             method: method,
             url: action,
-            data: data
+            data: data,
+            headers: header
         }).then((response) => {
             if(typeof callback === "function"){
                 return callback(response.data);
@@ -110,19 +111,21 @@ export default class Helper extends React.Component{
     /**
      * Get error message
      */
-    getNotification(data=[], variant="error"){
+    getNotification(data=[], variant=false){
         if(data.length !== 0){
             let errors = [];
             each(data, (val, i) => {
                 errors.push(<li key={i}>{val}</li>);
             })
             return(
-                <Alert
-                    severity={variant}
-                >
-                    <AlertTitle>{(variant === "error")?"Error":"Notification"}</AlertTitle>
-                    <ul>{errors}</ul>
-                </Alert>
+                <div style={{width: '98%',margin: 'auto', marginBottom: '0.5em'}}>
+                    <Alert
+                        severity={variant?"success":"error"}
+                    >
+                        <AlertTitle>{(!variant)?"Error":"Notification"}</AlertTitle>
+                        <ul>{errors}</ul>
+                    </Alert>
+                </div>
             )
         }
     }

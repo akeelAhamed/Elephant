@@ -28,6 +28,13 @@ class Controller extends BaseController
     public $paginate = 50;
     
     /**
+     * Global Request object
+     *
+     * @var Request
+     */
+    public $request;
+
+    /**
      * Global validator object
      *
      * @var Validate
@@ -43,6 +50,7 @@ class Controller extends BaseController
 
     public function __construct(Request $request)
     {
+        $this->request = $request;
         $this->validate = new Validate($request);
     }
 
@@ -59,6 +67,24 @@ class Controller extends BaseController
     }
 
     /**
+     * Upload file to server
+     * 
+     * @param object $file File name in request
+     * @param string $path Move path
+     * @param string $name Rename to
+     * 
+     */
+    public function uploadFile($file, $path='post', $name=''){
+        $name = $name == ''?$file->getClientOriginalName():$name;
+        $name = preg_replace('/[^A-Za-z0-9\-]/', '-', $name);
+        $name = \str_replace(' ', '_', $name);
+        $name = 'MED_'.\time().$name.'.'.$file->getClientOriginalExtension();
+        $file->move($path, $name);
+        $file = $path.'/'.$name;
+        return asset($file);
+    }
+
+    /**
      * Send response as json and endpoint to ajax
      *
      * @param mixed   $message
@@ -67,7 +93,7 @@ class Controller extends BaseController
      */
     public function response($message=['Something went wrong'], bool $status = false, int $code = 200):object
     {
-        $message = is_array($message)?$message:[$message];
+        $message = $status || is_array($message)?$message:[$message];
         $return = ['status' => $status, 'data'=>$message];
         return response()->json($return, $code);
     }

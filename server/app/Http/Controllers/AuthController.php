@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -24,7 +25,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'pan'   => $request->pan,
                 'mobile'   => $request->mobile,
-                'password' => bcrypt($request->password)
+                'password' => Hash::make($request->password)
             ]);
             $tokenResult = $user->createToken('authToken');
             $token = $tokenResult->token;

@@ -39,9 +39,27 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Append custom columns to the model
+     * 
+     * @var array
+     */
+    protected $appends = ['name'];
+
+
+    /**
      * Application user types
      * 
      * @var array
      */
     const TYPES = ['Admin', 'User', 'Sub_user'];
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getNameAttribute()
+    {
+        return "{$this->fname} {$this->lname}";
+    }
 }

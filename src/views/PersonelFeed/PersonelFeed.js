@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
   Grid,
@@ -12,6 +12,7 @@ import {
 } from '../Common/Charts';
 import MarketUpdate from "../Common/MarketUpdate";
 import Slider from "../Common/Slider";
+import Helper from '../../_services/Helper';
 import { Post, AddPost } from "../Post";
 
 const useStyles = makeStyles(theme => ({
@@ -27,8 +28,41 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const helper = new Helper();
+
+const PostList = ((props) => {
+  let postList = [];
+  for (let i = 0; i < props.list.length; i++) {
+    const element = props.list[i];
+    postList.push(<Post key={i} data={element}/>);
+  }
+
+  return postList;
+})
+
 const PersonelFeed = () => {
   const classes = useStyles();
+  const _default = {data: []};
+  const [posts, setPosts] = useState(_default);
+  const [loading, setLoading] = useState('block');
+
+  const addPost = ((post) => {
+    const newPosts = [...posts.data, post];
+    setPosts((prevState) => ({
+      ...prevState,
+      data: newPosts,
+    }));
+    window.location.reload();
+  });
+
+  useEffect(() => {
+    helper.api('/posts', function(response) {
+      setLoading('none');
+      if(response.status){
+        setPosts(response.data);
+      }
+    }, {}, 'GET');
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -41,30 +75,36 @@ const PersonelFeed = () => {
           xs={12}
         >
 
-          <AddPost/>
-          
-          <Post/>
-          
-          <Card className={classes.card}>
-            <CardHeader title="Relaince Industries Ltd" titleTypographyProps={{className: classes.title}} />
-            <CardContent>
-              <Slider>
-                <LatestSales />
-                <LatestSales />
-                <LatestSales />
-              </Slider>
-            </CardContent>
-          </Card>
+          <AddPost addPost={addPost}/>
 
-          <Card className={classes.card}>
-            <CardHeader title="Relaince Industries Ltd" titleTypographyProps={{className: classes.title}} />
-            <CardContent>
-              <Slider>
-                <ProfitLoss/>
-                <ProfitLoss/>
-              </Slider>
-            </CardContent>
-          </Card>
+          <PostList list={posts.data} />
+
+          <div style={{display: loading}}>
+            { Helper.getLoader() }
+          </div>
+
+          <div style={{display: "none"}}>
+            <Card className={classes.card}>
+              <CardHeader title="Relaince Industries Ltd" titleTypographyProps={{className: classes.title}} />
+              <CardContent>
+                <Slider>
+                  <LatestSales />
+                  <LatestSales />
+                  <LatestSales />
+                </Slider>
+              </CardContent>
+            </Card>
+
+            <Card className={classes.card}>
+              <CardHeader title="Relaince Industries Ltd" titleTypographyProps={{className: classes.title}} />
+              <CardContent>
+                <Slider>
+                  <ProfitLoss/>
+                  <ProfitLoss/>
+                </Slider>
+              </CardContent>
+            </Card>
+          </div>
         </Grid>
 
         <MarketUpdate />

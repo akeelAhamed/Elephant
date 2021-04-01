@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Helper;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class Validate extends Controller
+class Validate
 {
     /**
      * Http request
@@ -165,6 +164,21 @@ class Validate extends Controller
         $this->rules = [
             'old_password' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
+        return $this->validation();
+    }
+
+    /**
+     * Validate method for new post
+     * 
+     * @return bool status
+     */
+    public function post()
+    {
+        $this->rules = [
+            'text'    => ['present', 'max:5000'],
+            'images'  => ['array', 'max: 5'],
+            'images.*'  => ['image', 'mimes:jpg,jpeg,png,gif', 'max:10800'],
         ];
         return $this->validation();
     }

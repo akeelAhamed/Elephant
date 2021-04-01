@@ -38,7 +38,7 @@ function SignUp() {
   const onSubmit = (e) => {
     setValues({...values, "disable": true, "errors": []});
     helper.onSubmit(e, values, function(response){
-      setValues({...values, "disable": false });
+      setValues({...values, "disable": false, "errors": [] });
       if(response.status){
         return Auth.login(response.data);
       }else{

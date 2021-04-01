@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       border:'none',
       borderRight: `1px solid ${theme.palette.divider}`,
+      textAlign: 'right',
     }
   },
   tabPanel: {
@@ -97,7 +98,8 @@ const FriendTab = withWidth()(function(props) {
         className={classes.tabs}
       >
         <Tab label="My friends" {...a11yProps(0)} />
-        <Tab label="Add friends" {...a11yProps(1)} />
+        <Tab label="Friend Request" {...a11yProps(1)} />
+        <Tab label="Add friends" {...a11yProps(3)} />
       </Tabs>
 
       <TabPanel className={classes.tabPanel} value={value} index={0}>
@@ -105,6 +107,10 @@ const FriendTab = withWidth()(function(props) {
       </TabPanel>
 
       <TabPanel className={classes.tabPanel} value={value} index={1}>
+        No friend request
+      </TabPanel>
+
+      <TabPanel className={classes.tabPanel} value={value} index={2}>
         <FindFriend />
       </TabPanel>
     </div>

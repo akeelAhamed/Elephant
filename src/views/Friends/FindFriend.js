@@ -86,7 +86,7 @@ function FindFriend() {
     if(props.target.value !== ''){
         _helper.api('/search/friends', function (response) {
             if(response.status){
-                return setFriends(response.data[0]);
+                return setFriends(response.data);
             }
 
             return setFriends(_d);

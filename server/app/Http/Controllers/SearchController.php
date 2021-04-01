@@ -8,15 +8,14 @@ use App\Models\{User};
 class SearchController extends Controller
 {
     /**
-     * Http request
+     * All search base method
      *
-     * @var Request
+     * @param Request $request
+     * @param string $type
+     * @return void
      */
-    private $request;
-
     public function index(Request $request, $type)
     {
-        $this->request = $request;
         if ($this->request->has('payload') && \method_exists($this, $type)) {
             $this->user = $this->getUser($request);
             return $this->{$type}();

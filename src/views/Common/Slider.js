@@ -3,15 +3,16 @@ import {Slider as MainSlider} from 'infinite-react-carousel';
 
 const Slider = (props) => {
   const settings =  {
-    arrows: false,
+    arrows: props.arrow !== undefined,
     arrowsBlock: !false,
-    centerMode: true,
-    dots: true,
+    centerMode: props.full === undefined,
+    dots: props.nodots === undefined,
     accessibility: false
   };
+  
   return (
     <MainSlider {...settings}>
-        {props.children}
+      {props.children}
     </MainSlider>
   );
 };

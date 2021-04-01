@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Rest;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchController;
 
 /*
@@ -27,12 +28,17 @@ Route::get('/', function () {
 Route::middleware([Rest::class])->prefix('app')->group(function () {
     Route::post('/sign-up', [AuthController::class, 'register']);
     Route::post('/sign-in', [AuthController::class, 'login']);
-    Route::middleware('auth:api')->post('/user', function (Request $request) {
-        return $request->user();
-    });
 
     Route::middleware('auth:api')->group(function () {
+        Route::post('/user', function (Request $request) {
+            return $request->user();
+        });
+
+        Route::resource('/posts', PostController::class);
+        
+        //Utility
         Route::post('/search/{type}', [SearchController::class, 'index']);
+        
     });
 });
 
